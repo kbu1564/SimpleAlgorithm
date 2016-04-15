@@ -4,20 +4,21 @@ Very simple and powerful algorithm
 ## Data Structure
 1. Circular Queue
 
-### init
+### circular queue
+**init**
 ```cpp
 const int SIZE = 100000;
 int Q[SIZE];
 int f = 0, r = 0;
 ```
 
-### push
+**push**
 ```cpp
 Q[r++] = 1;
 r %= SIZE;
 ```
 
-### pop
+**pop**
 ```cpp
 int data = Q[f++];
 f %= SIZE;
