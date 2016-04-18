@@ -7,14 +7,14 @@ Very simple and powerful algorithm
 2. [Algorithm](#algorithm)
 3. [Tip](#tip)
 
-## Data Structure(자료구조)
+## Data Structure
 1. [Circular Queue](#circular-queue)
 2. [Queue & Stack](#queue--stack)
 
-## Algorithm(알고리즘)
+## Algorithm
 1. 
 
-## Tip(속도 향상 팁)
+## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠르다.
 * 입력값으로 받아야 할 데이터의 개수가 최대 30~50만개를 넘어가는 경우 scanf, printf 함수가 훨씬 빠르다.
 
