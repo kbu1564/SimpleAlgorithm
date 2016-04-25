@@ -19,7 +19,7 @@ Very simple and powerful algorithm
 5. [플로이드 워샬 알고리즘 - O(N^3)](#floyd-warshall)
 6. [그래프 사이클 검사 함수(Find)](#find)
 7. [합집합 수행 함수(Union)](#union)
-8. 크러스컬 알고리즘
+8. [크러스컬 알고리즘](#kruskal)
 9. 너비 우선 탐색(BFS)
 10. 깊이 우선 탐색(DFS)
 11. Network-Flow 알고리즘
@@ -148,3 +148,49 @@ bool isCycle = (fi(a) == fi(b));         // 노드 a의 root 부모와 노드 b�
 // 노드 x에서 노드 y로 향하는 간선 정보를 최소 스페닝 트리에 추가
 void un(int x, int y) { P[fi(y)] = fi(x); }
 ```
+
+### kruskal
+```cpp
+// P[i] = 노드i의 부모 노드번호
+//             A    B    C    D    E    F    G
+int  P[7] = {  0,   1,   2,   3,   4,   5,   6 };
+char N[7] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };
+
+// fi(), un() 함수는 위의 Find , Union 부분 참조
+...
+
+// 최소 우선순위 큐 지정을 위한 구조체 정의
+struct node {
+  int va, vb, e;
+  bool operator<(const node& n) const { return e > n.e; }
+};
+
+// 간선 정보를 최소 우선순위 큐를 이용하여 저장
+priority_queue<node> Q;
+
+// 간선 정보 삽입
+// https://ko.wikipedia.org/wiki/크러스컬_알고리즘
+// va -> vb 비용 : e
+Q.push({ 0, 1, 7 });
+Q.push({ 0, 3, 5 });
+Q.push({ 1, 2, 8 });
+Q.push({ 1, 3, 9 });
+Q.push({ 1, 4, 7 });
+Q.push({ 2, 4, 5 });
+Q.push({ 3, 4, 15 });
+Q.push({ 3, 5, 6 });
+Q.push({ 4, 5, 8 });
+Q.push({ 5, 6, 11 });
+Q.push({ 4, 6, 9 });
+
+// 크러스컬 알고리즘 O(ElogV)
+while (!Q.empty()) {
+  node data = Q.top(); Q.pop();
+  if (fi(data.va) != fi(data.vb)) {
+    // 최소 스패닝 크리의 간선 정보 출력
+    cout << N[data.va] << " -> " << N[data.vb] << " = " << data.e << endl;
+    un(data.va, data.vb);
+  }
+}
+```
+
