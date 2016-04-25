@@ -16,7 +16,7 @@ Very simple and powerful algorithm
 2. [최소공배수 함수(유클리드 호제법)](#lcm)
 3. 다익스트라 알고리즘 - O(N^2) 버전
 4. 다익스트라 알고리즘 - O(E + VlogV) 버전
-5. 플로이드 워샬 알고리즘 - O(N^3)
+5. [플로이드 워샬 알고리즘 - O(N^3)](#floyd-warshall)
 6. [그래프 사이클 검사 함수(Find)](#find)
 7. [합집합 수행 함수(Union)](#union)
 8. 크러스컬 알고리즘
@@ -89,6 +89,41 @@ int gcd(int a, int b) { return !a? b: gcd(b%a, a); }
 ### LCM
 ```cpp
 int lcm(int a, int b) { return a / gcd(a, b) * b; }
+```
+
+### Floyd Warshall
+```cpp
+// init
+const int INF = 987654321;
+const int N = 101;
+int DP[N][N] = { 0, };
+for (int i = 0; i < N; i++) for (int j = 0; j < N; j++) DP[i][j] = INF;
+
+// DP 행렬에 간선 정보를 입력한다.
+// DP[i][j] = 정점i에서 정점j까지 가기위한 최단거리
+// 
+// DP[i][i] = 0;
+// DP[i][j] = 만약 정점i에서 정점j까지 갈 수 없는 경우 INF;
+
+// 방향 그래프의 경우
+// 시간 복잡도 O(N^3)
+//
+// floyd warshall algorithm
+for (int i = 0; i < N; i++)
+	for (int j = 0; j < N; j++)
+		for (int k = 0; k < N; k++)
+			if (DP[i][j] > DP[i][k] + DP[k][j])
+				DP[i][j] = DP[i][k] + DP[k][j];
+
+// 무방향 그래프의 경우
+// 시간 복잡도 O(N^2)
+//
+// floyd warshall algorithm
+for (int i = 0; i < N; i++)
+	for (int j = i+1; j < N; j++)
+		for (int k = 0; k < N; k++)
+			if (DP[i][j] > DP[i][k] + DP[k][j])
+				DP[j][i] = DP[i][j] = DP[i][k] + DP[k][j];
 ```
 
 ### Find
