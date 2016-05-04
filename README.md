@@ -20,15 +20,18 @@ Very simple and powerful algorithm
 6. [그래프 사이클 검사 함수(Find)](#find)
 7. [합집합 수행 함수(Union)](#union)
 8. [크러스컬 알고리즘](#kruskal)
-9. 너비 우선 탐색(BFS)
+9. [너비 우선 탐색(BFS)](#bfs)
 10. 깊이 우선 탐색(DFS)
 11. Network-Flow 알고리즘
+12. 위상 정렬
 
 ## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
  - 입력값으로 받아야 할 데이터의 개수가 최대 30 ~ 50만개를 넘어가는 경우 scanf, printf 함수가 훨씬 빠름
+ - `cout << endl;` 보다 `cout << "\n";` 이 훨씬 빠르다.
 2. stl 을 최대한 활용
 3. 입력 & 출력 값을 자세히 확인후, 최대 입력값 기준으로 Big-O 계산을 통한 문제 유형 및 알고리즘 선택
+4. 전역 변수가 지역변수보다 생성 가능한 배열원소의 개수가 더 많다. (보통 최대 150만개의 int 배열 생성가능)
 
 ### circular queue
 ```cpp
@@ -192,5 +195,51 @@ while (!Q.empty()) {
     un(data.va, data.vb);
   }
 }
+```
+
+### bfs
+```cpp
+int MAP[101][101]; // 아래와 같이 셋팅 되어있다고 가정
+int VIS[101][101]; // 방문 배열
+/*
+MAP 정보
+0 : 길
+1 : 벽
+(0, 0) : 출발점
+(N, M) : 도착점
+
+0 0 0 0
+1 1 1 0
+1 0 0 0
+0 0 0 0
+0 1 1 1
+0 0 0 0
+*/
+
+int N = 101; // rows
+int M = 101; // cols
+// BFS의 탐색방식은 수면 파동과 같이 원형으로 탐색되어진다고 생각하면 이해가 조금 더 쉽다.
+struct item { int x, y, c; };
+const int SIZE = 100000;
+const int AX[4] = { 0, 1, 0, -1 }, AY[4] = { -1, 0, 1, 0 };
+item Q[SIZE];
+int f = 0, r = 0;
+
+Q[r++] = { 0, 0, 0 };
+r %= SIZE;
+while (f != r) {
+	item data = Q[f++];
+	f %= SIZE;
+  VIS[data.y][data.x] = data.c;
+	for (int i = 0; i < 4; i++) {
+		item next = { data.x + AX[i], data.y + AY[i], data.c + 1 };
+		if (next.x < 0 || next.y < 0 || next.x >= M || next.y >= N) continue;
+		if (next.c > VIS[next.y][next.x]) continue;
+		Q[r++] = next;
+		r %= SIZE;
+	}
+}
+
+cout << VIS[M][N] << endl;
 ```
 
