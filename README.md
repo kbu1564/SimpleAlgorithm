@@ -24,6 +24,7 @@ Very simple and powerful algorithm
 10. 깊이 우선 탐색(DFS)
 11. Network-Flow 알고리즘
 12. 위상 정렬
+13. [파라매트릭 서치](#parametric-search)
 
 ## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
@@ -242,4 +243,6 @@ while (f != r) {
 
 cout << VIS[M][N] << endl;
 ```
+
+### Parametric Search
 
