@@ -15,7 +15,7 @@ Very simple and powerful algorithm
 1. [최대공약수 함수(유클리드 호제법)](#gcd)
 2. [최소공배수 함수(유클리드 호제법)](#lcm)
 3. 다익스트라 알고리즘 - O(N^2) 버전
-4. 다익스트라 알고리즘 - O(E + VlogV) 버전
+4. [다익스트라 알고리즘 - O(E + VlogV) 버전](#dijkstra)
 5. [플로이드 워샬 알고리즘 - O(N^3)](#floyd-warshall)
 6. [그래프 사이클 검사 함수(Find)](#find)
 7. [합집합 수행 함수(Union)](#union)
@@ -25,6 +25,7 @@ Very simple and powerful algorithm
 11. Network-Flow 알고리즘
 12. 위상 정렬
 13. [파라매트릭 서치](#parametric-search)
+14. [부분 합 구하기- O(1)](#sub-sum)
 
 ## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
@@ -284,6 +285,64 @@ while (f != r) {
 
 cout << VIS[M][N] << endl;
 ```
+### dfs
+```cpp
+int MAP[101][101]; // 아래와 같이 셋팅 되어있다고 가정
+int VIS[101][101]; // 방문 배열
+/*
+MAP 정보
+0 : 길
+1 : 벽
+(0, 0) : 출발점
+(N, M) : 도착점
+
+0 0 0 0
+1 1 1 0
+1 0 0 0
+0 0 0 0
+0 1 1 1
+0 0 0 0
+*/
+
+int N = 101; // rows
+int M = 101; // cols
+// dfs의 탐색 방식은 최대한 끝까지 길을 찾아간후 잘못된 경우 되돌아가는 방식이다.
+struct item { int x, y, c; };
+const int SIZE = 100000;
+const int AX[4] = { 0, 1, 0, -1 }, AY[4] = { -1, 0, 1, 0 };
+item S[SIZE];
+int t = 0;
+
+S[t++] = { 0, 0, 0 };
+while (t > 0) {
+	item data = S[t++];
+  VIS[data.y][data.x] = data.c;
+	for (int i = 0; i < 4; i++) {
+		item next = { data.x + AX[i], data.y + AY[i], data.c + 1 };
+		if (next.x < 0 || next.y < 0 || next.x >= M || next.y >= N) continue;
+		if (next.c > VIS[next.y][next.x]) continue;
+		S[t++] = next;
+	}
+}
+
+cout << VIS[M][N] << endl;
+```
 
 ### Parametric Search
+
+### Sub Sum
+```cpp
+// 입력이 아래와 같다고 가정한다면
+int INPUT[10000] = { 0, };
+for (int i = 0; i < 10000; i++) INPUT[i] = i;
+
+int total = 0;
+int SUM[10000] = { 0, };
+for (int i = 0; i < 10000; i++) SUM[i] = (total += INPUT[i]);
+
+// 5 ~ 500 까지의 합 구하기
+// ans = (1 ~ 500까지 합) - (1 ~ 4까지 합);
+int ans = SUM[500] - SUM[5-1];
+cout << ans << endl;
+```
 
