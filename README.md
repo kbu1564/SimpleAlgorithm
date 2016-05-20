@@ -14,18 +14,17 @@ Very simple and powerful algorithm
 ## Simple codes of Algorithm
 1. [최대공약수 함수(유클리드 호제법)](#gcd)
 2. [최소공배수 함수(유클리드 호제법)](#lcm)
-3. 다익스트라 알고리즘 - O(N^2) 버전
-4. [다익스트라 알고리즘 - O(E + VlogV) 버전](#dijkstra)
-5. [플로이드 워샬 알고리즘 - O(N^3)](#floyd-warshall)
-6. [그래프 사이클 검사 함수(Find)](#find)
-7. [합집합 수행 함수(Union)](#union)
-8. [크러스컬 알고리즘](#kruskal)
-9. [너비 우선 탐색(BFS)](#bfs)
-10. 깊이 우선 탐색(DFS)
-11. Network-Flow 알고리즘
-12. 위상 정렬
-13. [파라매트릭 서치](#parametric-search)
-14. [부분 합 구하기- O(1)](#sub-sum)
+3. [다익스트라 알고리즘 - O(E + VlogV)](#dijkstra)
+4. [플로이드 워샬 알고리즘 - O(N^3)](#floyd-warshall)
+5. [그래프 사이클 검사 함수(Find)](#find)
+6. [합집합 수행 함수(Union)](#union)
+7. [크러스컬 알고리즘](#kruskal)
+8. [너비 우선 탐색(BFS)](#bfs)
+9. [깊이 우선 탐색(DFS)](#dfs)
+10. Network-Flow 알고리즘
+11. 위상 정렬
+12. [파라매트릭 서치](#parametric-search)
+13. [부분 합 구하기- O(1)](#sub-sum)
 
 ## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
