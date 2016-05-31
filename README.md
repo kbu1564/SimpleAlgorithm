@@ -32,9 +32,13 @@ Very simple and powerful algorithm
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
  - 입력값으로 받아야 할 데이터의 개수가 최대 30 ~ 50만개를 넘어가는 경우 scanf, printf 함수가 훨씬 빠름
  - `cout << endl;` 보다 `cout << "\n";` 이 훨씬 빠르다.
+ - 1초 안에 10만개의 int형 데이터를 입력받을 경우 cin은 '시간 초과'가 걸립니다.
 2. stl 을 최대한 활용
 3. 입력 & 출력 값을 자세히 확인후, 최대 입력값 기준으로 Big-O 계산을 통한 문제 유형 및 알고리즘 선택
 4. 전역 변수가 지역변수보다 생성 가능한 배열원소의 개수가 더 많다. (보통 최대 150만개의 int 배열 생성가능)
+5. 전역공간에 선언된 변수는 로더가 프로그램 정보를 메모리에 적재시 0으로 자동 초기화를 해줍니다.
+6. 보통 대회에서 문제 채점시 printf, scanf 함수는 iostream 이외에 stdio.h 헤더를 include 시켜야 컴파일이 가능합니다.
+7. Runtime Error 가 발생하는 경우의 80 ~ 90%는 배열 변수의 index 범위 초과 입니다.
 
 ### circular queue
 ```cpp
@@ -328,8 +332,6 @@ while (t > 0) {
 
 cout << VIS[M][N] << endl;
 ```
-
-### Parametric Search
 
 ### Sub Sum
 ```cpp
