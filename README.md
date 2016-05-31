@@ -25,6 +25,8 @@ Very simple and powerful algorithm
 11. 위상 정렬
 12. [파라매트릭 서치](#parametric-search)
 13. [부분 합 구하기- O(1)](#sub-sum)
+14. 최장 공통 부분수열 구하기(LCS) - O(NM)
+15. 최장 공통 증가 부분수열 구하기 - O(NlgN)
 
 ## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
@@ -270,16 +272,16 @@ int f = 0, r = 0;
 Q[r++] = { 0, 0, 0 };
 r %= SIZE;
 while (f != r) {
-	item data = Q[f++];
-	f %= SIZE;
+  item data = Q[f++];
+  f %= SIZE;
   VIS[data.y][data.x] = data.c;
-	for (int i = 0; i < 4; i++) {
-		item next = { data.x + AX[i], data.y + AY[i], data.c + 1 };
-		if (next.x < 0 || next.y < 0 || next.x >= M || next.y >= N) continue;
-		if (next.c > VIS[next.y][next.x]) continue;
-		Q[r++] = next;
-		r %= SIZE;
-	}
+  for (int i = 0; i < 4; i++) {
+    item next = { data.x + AX[i], data.y + AY[i], data.c + 1 };
+    if (next.x < 0 || next.y < 0 || next.x >= M || next.y >= N) continue;
+    if (next.c > VIS[next.y][next.x]) continue;
+    Q[r++] = next;
+    r %= SIZE;
+  }
 }
 
 cout << VIS[M][N] << endl;
@@ -314,14 +316,14 @@ int t = 0;
 
 S[t++] = { 0, 0, 0 };
 while (t > 0) {
-	item data = S[t++];
+  item data = S[t++];
   VIS[data.y][data.x] = data.c;
-	for (int i = 0; i < 4; i++) {
-		item next = { data.x + AX[i], data.y + AY[i], data.c + 1 };
-		if (next.x < 0 || next.y < 0 || next.x >= M || next.y >= N) continue;
-		if (next.c > VIS[next.y][next.x]) continue;
-		S[t++] = next;
-	}
+  for (int i = 0; i < 4; i++) {
+    item next = { data.x + AX[i], data.y + AY[i], data.c + 1 };
+    if (next.x < 0 || next.y < 0 || next.x >= M || next.y >= N) continue;
+    if (next.c > VIS[next.y][next.x]) continue;
+    S[t++] = next;
+  }
 }
 
 cout << VIS[M][N] << endl;
