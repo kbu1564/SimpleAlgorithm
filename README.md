@@ -10,6 +10,8 @@ Very simple and powerful algorithm
 ## Data Structure
 1. [Circular Queue](#circular-queue)
 2. [Queue & Stack](#queue--stack)
+3. [Index Tree](#index-tree)
+4. [Binary Index Tree](#binary-index-tree)
 
 ## Simple codes of Algorithm
 1. [최대공약수 함수(유클리드 호제법)](#gcd)
@@ -27,18 +29,25 @@ Very simple and powerful algorithm
 13. [부분 합 구하기- O(1)](#sub-sum)
 14. 최장 공통 부분수열 구하기(LCS) - O(NM)
 15. 최장 공통 증가 부분수열 구하기 - O(NlgN)
+16. nCr => Combination 구하기
+17. nPr => Permutation 구하기
+18. 평방분할(Sqrt Decomposition)
+19. STL Sorting - O(NlogN)
+20. Counting Sort - O(N)
 
 ## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
  - 입력값으로 받아야 할 데이터의 개수가 최대 30 ~ 50만개를 넘어가는 경우 scanf, printf 함수가 훨씬 빠름
  - `cout << endl;` 보다 `cout << "\n";` 이 훨씬 빠르다.
- - 1초 안에 10만개의 int형 데이터를 입력받을 경우 cin은 '시간 초과'가 걸립니다.
+ - 1초 안에 10만개의 int형 데이터를 입력받을 경우 cin은 '시간 초과'가 걸립니다 - acmicpc.net 기준
 2. stl 을 최대한 활용
 3. 입력 & 출력 값을 자세히 확인후, 최대 입력값 기준으로 Big-O 계산을 통한 문제 유형 및 알고리즘 선택
 4. 전역 변수가 지역변수보다 생성 가능한 배열원소의 개수가 더 많다. (보통 최대 150만개의 int 배열 생성가능)
 5. 전역공간에 선언된 변수는 로더가 프로그램 정보를 메모리에 적재시 0으로 자동 초기화를 해줍니다.
 6. 보통 대회에서 문제 채점시 printf, scanf 함수는 iostream 이외에 stdio.h 헤더를 include 시켜야 컴파일이 가능합니다.
 7. Runtime Error 가 발생하는 경우의 80 ~ 90%는 배열 변수의 index 범위 초과 입니다.
+8. max, min 함수의 경우 C++ 기준으로 algorithm 헤더를 포함시키면 사용이 가능합니다.
+ - std::max(), std::min();
 
 ### circular queue
 ```cpp
