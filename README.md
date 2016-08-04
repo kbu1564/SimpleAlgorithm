@@ -32,8 +32,9 @@ Very simple and powerful algorithm
 16. nCr => Combination 구하기
 17. nPr => Permutation 구하기
 18. 평방분할(Sqrt Decomposition)
-19. STL Sorting - O(NlogN)
-20. Counting Sort - O(N)
+19. [STL Sorting - O(NlogN)](#stl-sorting)
+20. [Counting Sort - O(N)](#count-sorting)
+21. [이분탐색 - O(logN)](#binary-search)
 
 ## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
@@ -358,3 +359,67 @@ int ans = SUM[500] - SUM[5-1];
 cout << ans << endl;
 ```
 
+### STL Sorting
+```cpp
+// 정수를 정렬해야 할 경우 vector 랑 혼합 사용
+// 작은수 -> 큰수 순서로 정렬
+vector<int> vec;
+vec.push_back(1);
+vec.push_back(5);
+vec.push_back(3);
+vec.push_back(9);
+vec.push_back(7);
+sort(vec.begin(), vec.end());
+
+// 만약 x, y 좌표가 들어오는데 이러한 좌표를 우선적으로 X축 정렬 후 Y축 기준 정렬을 해야할 때
+// pair 이용
+vector< pair<int, int> > vec;
+vec.push_back(pair<int, int>(0, 0));
+vec.push_back(pair<int, int>(10, 10));
+vec.push_back(pair<int, int>(10, 0));
+vec.push_back(pair<int, int>(0, 10));
+sort(vec.begin(), vec.end());
+```
+
+### Count Sorting
+```cpp
+// 정렬해야 하는 데이터가 1 이상 100만 이하인 경우
+int ARR[1000001];
+
+for (int i = 0; i < N; i++) {
+	int NI;
+	cin >> NI;
+	ARR[NI]++;
+}
+
+for (int i = 0; i < 1000001; i++) {
+	if (ARR[i] <= 0) continue;
+
+	// 해당 숫자의 개수 만큼 출력
+	for (int j = 0; j < ARR[i]; j++) {
+		cout << ARR[i] << " ";
+	}
+}
+cout << endl;
+```
+
+### Binary Search
+```cpp
+// 전역으로 선언
+int INPUT[1000001] = { 0, };
+
+// 입력이 뒤죽박죽으로 들어오는 100만개 숫자들 중에서 M을 찾아야 할 경우
+int N = 1000000;
+for (int i = 0; i < N; i++)
+	cin >> INPUT[i];
+
+// 정렬 - O(NlogN)
+sort(INPUT, INPUT+N);
+
+// 존재하면 1, 존재하지 않으면 0
+int M = 12345678;
+
+// #include <algorithm> 필요
+// 이분탐색 - 정렬이 된경우 O(logN)
+cout << binary_search(INPUT, INPUT+N, M) << endl;
+```
