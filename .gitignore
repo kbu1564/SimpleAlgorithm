@@ -27,3 +27,6 @@
 *.out
 *.app
 a.out
+
+input.txt
+output.txt
