@@ -1,41 +1,35 @@
-#include <stdio.h>
 #include <iostream>
 #include <algorithm>
 using namespace std;
-const int SIZE = 100000;
-int Q[SIZE];
-int MAP[1001][1001];
+int DP[1001];
+int M[1001][1001], D[1001];
+int solve(int W, int N) {
+	if (DP[W] > 0) return DP[W];
+	int result = 0;
+	for (int i = 1; i <= N; i++) {
+		if (M[W][i] == 1) {
+			result = max(result, solve(i, N));
+		}
+	}
+	return DP[W] = result + D[W];
+}
 int main() {
-	int T; scanf("%d", &T);
+	int T;
+	scanf("%d", &T);
 	for (int i = 0; i < T; i++) {
-		int N, K, TRR[1001] = { 0, };
-		int INARR[1001] = { 0, };
+		int N, K, W;
+		for (int j = 0; j < 1001; j++) D[j] = DP[j] = 0;
+		for (int j = 0; j < 1001; j++) for (int k = 0; k < 1001; k++) M[j][k] = 0;
+
 		scanf("%d %d", &N, &K);
-		for (int j = 1; j <= N; j++) scanf("%d", &TRR[j]);
-		for (int j = 1; j <= K; j++) {
-			int u, v;
-			scanf("%d %d", &u, &v);
-			MAP[u][v] = 1;
-			INARR[v]++;
+		for (int j = 1; j <= N; j++) scanf("%d", &D[j]);
+		for (int j = 0; j < K; j++) {
+			int x, y;
+			scanf("%d %d", &x, &y);
+			M[y][x] = 1;
 		}
-		int W; scanf("%d", &W);
-
-		// IN 0개 삽입
-		int f = 0, r = 0;
-		Q[r++] = W;
-		r %= SIZE;
-		// bfs
-		while (r != f) {
-			int data = Q[f++];
-			f %= SIZE;
-
-			for (int j = 1; j <= N; j++) {
-				if (MAP[j][data] == 1) {
-					// 최대값 구하기
-				}
-			}
-		}
+		scanf("%d", &W);
+		printf("%d\n", solve(W, N));
 	}
 	return 0;
 }
-
