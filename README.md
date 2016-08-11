@@ -25,7 +25,7 @@ Very simple and powerful algorithm
 9. [깊이 우선 탐색(DFS)](#dfs)
 10. Network-Flow 알고리즘
 11. 위상 정렬
-12. [파라매트릭 서치](#parametric-search)
+12. 파라매트릭 서치
 13. [부분 합 구하기- O(1)](#sub-sum)
 14. 최장 공통 부분수열 구하기(LCS) - O(NM)
 15. 최장 공통 증가 부분수열 구하기 - O(NlgN)
@@ -35,6 +35,7 @@ Very simple and powerful algorithm
 19. [STL Sorting - O(NlogN)](#stl-sorting)
 20. [Counting Sort - O(N)](#count-sorting)
 21. [이분탐색 - O(logN)](#binary-search)
+22. (부분 합)세그먼트 트리 - O(logN)
 
 ## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
@@ -46,9 +47,12 @@ Very simple and powerful algorithm
 4. 전역 변수가 지역변수보다 생성 가능한 배열원소의 개수가 더 많다. (보통 최대 150만개의 int 배열 생성가능)
 5. 전역공간에 선언된 변수는 로더가 프로그램 정보를 메모리에 적재시 0으로 자동 초기화를 해줍니다.
 6. 보통 대회에서 문제 채점시 printf, scanf 함수는 iostream 이외에 stdio.h 헤더를 include 시켜야 컴파일이 가능합니다.
-7. Runtime Error 가 발생하는 경우의 80 ~ 90%는 배열 변수의 index 범위 초과 입니다.
-8. max, min 함수의 경우 C++ 기준으로 algorithm 헤더를 포함시키면 사용이 가능합니다.
+7. max, min 함수의 경우 C++ 기준으로 algorithm 헤더를 포함시키면 사용이 가능합니다.
  - std::max(), std::min();
+8. Runtime Error 가 발생하는 경우의 80 ~ 90%는 배열 변수의 index 범위 초과 입니다.
+9. C/C++ 에서는 double 형에 대해 10^(-13) 까지 정확도를 보장해 주지만 C++의 경우 기본 10^(-6) 에서 자동 반올림 처리합니다.
+ - 소수점 단위 정확도를 요구하는 문제시 ```printf("%.20lf", double_value);``` 등의 함수를 이용하여 소수점 이하 20자리까지 표현 가능합니다.
+ - printf 함수의 경우에도 소수점 단위 자동 반올림 처리 됩니다.
 
 ### circular queue
 ```cpp
