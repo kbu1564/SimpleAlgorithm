@@ -30,33 +30,3 @@ int main() {
 					count++;
 				}
 
-				// 1È¸ ±³Ã¼
-				if (k == U || k == D) {
-					if (M[ny][nx + 1] == candy || M[ny][nx - 1] == candy) {
-						ncandy = candy;
-						while (ncandy == candy) {
-							nx += AX[k];
-							ny += AY[k];
-							ncandy = M[ny][nx];
-							count++;
-						}
-					}
-				} else if (k == L || k == R) {
-					if (M[ny + 1][nx] == candy || M[ny - 1][nx] == candy) {
-						ncandy = candy;
-						while (ncandy == candy) {
-							nx += AX[k];
-							ny += AY[k];
-							ncandy = M[ny][nx];
-							count++;
-						}
-					}
-				}
-				result = max(result, count);
-			}
-		}
-	}
-	cout << result << endl;
-	return 0;
-}
- 
