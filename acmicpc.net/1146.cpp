@@ -1,32 +1,69 @@
+#include <cmath>
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
+#include <algorithm>
 using namespace std;
-int n,DP[101][2];
+
+int N, DP[101][101];
 int main() {
-  cin >> n;
+  cin >> N;
 
-  DP[0][0] = DP[0][1] = n;
-  DP[1][0] = n-1;
-  for (int i = 2; i < n; i++) {
-    DP[i][0] = DP[i-2][0] * DP[i-1][1];
-    DP[i][1] = DP[i-2][1] * DP[i-1][0];
-  }
-
-  cout << DP[n-1][0]+DP[n-1][1] << endl;
+	int result = 0;
+	for (int i = 1; i <= N; i++) result = (result + DP[N][i]) % 1000000;
+	cout << result << endl;
   return 0;
 }
-/*
-1 - 2 - X
+DP[1][1] = 1
 
-  - 3 - 2 - X
+DP[2][1] = 1
+DP[2][2] = 1
 
-  - 4 - 3 - 2
-      - 2 - X
+DP[3][1] = 1
+DP[3][2] = 2
+DP[3][3] = 1
 
-  - 5 - 4 - 3
-      - 3 - 2
-      - 2 - X
+DP[4][1] = 2
+DP[4][2] = 3
+DP[4][3] = 3
+DP[4][4] = 2
+
+1 2
+2 1
+
+
+1 3 2
+3 1 2
+
+2 1 3
+2 3 1
+
+
+1 4 2 3
+4 1 3 2  1 3 2 4
+
+2 1 4 3  2 4 1 3
+2 3 1 4  4 2 3 1
+
+3 1 4 2  3 4 1 2
+3 2 4 1
+
+
+3 1 5 2 4  4 2 5 1 3
+4 3 5 1 2  3 2 5 1 4
+
+1 3 2 5 4  5 1 3 2 4
+4 1 3 2 5  4 5 1 3 2
+
+2 1 4 3 5  2 5 1 4 3
+2 4 1 5 3  5 2 4 1 3
+
+5 2 3 1 4  2 3 1 5 4
+4 5 2 3 1  4 2 3 1 5
+
+3 5 1 4 2  3 1 4 2 5
+5 3 4 1 2  3 4 1 5 2
+
+2 1 5 3 4  5 1 4 2 3
+3 2 5 1 4  4 1 5 2 3
+
+2 5 3 1 4
 

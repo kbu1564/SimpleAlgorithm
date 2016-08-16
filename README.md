@@ -15,27 +15,28 @@ Very simple and powerful algorithm
 
 ## Simple codes of Algorithm
 1. [최대공약수 함수(유클리드 호제법)](#gcd)
-2. [최소공배수 함수(유클리드 호제법)](#lcm)
-3. [다익스트라 알고리즘 - O(E + VlogV)](#dijkstra)
-4. [플로이드 워샬 알고리즘 - O(N^3)](#floyd-warshall)
-5. [그래프 사이클 검사 함수(Find)](#find)
-6. [합집합 수행 함수(Union)](#union)
-7. [크러스컬 알고리즘](#kruskal)
-8. [너비 우선 탐색(BFS)](#bfs)
-9. [깊이 우선 탐색(DFS)](#dfs)
-10. Network-Flow 알고리즘
-11. 위상 정렬
-12. 파라매트릭 서치
-13. [부분 합 구하기- O(1)](#sub-sum)
-14. 최장 공통 부분수열 구하기(LCS) - O(NM)
-15. 최장 공통 증가 부분수열 구하기 - O(NlgN)
-16. nCr => Combination 구하기
-17. nPr => Permutation 구하기
-18. 평방분할(Sqrt Decomposition)
-19. [STL Sorting - O(NlogN)](#stl-sorting)
-20. [Counting Sort - O(N)](#count-sorting)
-21. [이분탐색 - O(logN)](#binary-search)
-22. (부분 합)세그먼트 트리 - O(logN)
+1. [최소공배수 함수(유클리드 호제법)](#lcm)
+1. [다익스트라 알고리즘 - O(E + VlogV)](#dijkstra)
+1. [플로이드 워샬 알고리즘 - O(N^3)](#floyd-warshall)
+1. [양방향 그래프 사이클 검사 함수(Find)](#find)
+1. 단방향 그래프 사이클 검사 함수(Find)
+1. [합집합 수행 함수(Union)](#union)
+1. [크러스컬 알고리즘](#kruskal)
+1. [너비 우선 탐색(BFS)](#bfs)
+1. [깊이 우선 탐색(DFS)](#dfs)
+1. Network-Flow 알고리즘
+1. 위상 정렬
+1. 파라매트릭 서치
+1. [부분 합 구하기- O(1)](#sub-sum)
+1. 최장 공통 부분수열 구하기(LCS) - O(NM)
+1. 최장 공통 증가 부분수열 구하기 - O(NlgN)
+1. nCr => Combination 구하기
+1. nPr => Permutation 구하기
+1. 평방분할(Sqrt Decomposition)
+1. [STL Sorting - O(NlogN)](#stl-sorting)
+1. [Counting Sort - O(N)](#count-sorting)
+1. [이분탐색 - O(logN)](#binary-search)
+1. (부분 합)세그먼트 트리 - O(logN)
 
 ## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
