@@ -8,7 +8,8 @@ using namespace std;
 
 int isPossible = 1;
 map<string, int> S;
-vector< vector<int> > MAP;
+vector<int> MAP[10001];
+
 int P[10001], F[10001];
 int maxSize;
 void fi(int x) {
@@ -16,7 +17,7 @@ void fi(int x) {
 	for (int i = 0; i < MAP[x].size(); i++) {
 		int th = MAP[x][i];
 		if (P[th] == -1) fi(th);
-		else if (P[x] < P[th]) isPossible = 0;
+		else if (F[th] == 0) isPossible = 0;
 	}
 	F[x] = 1;
 }
@@ -39,6 +40,7 @@ int main() {
 		int ia = S[va], ib = S[vb];
 		MAP[ia].push_back(ib);
 	}
+
 	int maxSize = S.size();
 	for (int i = 0; i < maxSize; i++) {
 		fi(i);

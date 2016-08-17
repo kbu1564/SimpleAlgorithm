@@ -18,8 +18,8 @@ Very simple and powerful algorithm
 1. [최소공배수 함수(유클리드 호제법)](#lcm)
 1. [다익스트라 알고리즘 - O(E + VlogV)](#dijkstra)
 1. [플로이드 워샬 알고리즘 - O(N^3)](#floyd-warshall)
-1. [양방향 그래프 사이클 검사 함수(Find)](#find)
-1. 단방향 그래프 사이클 검사 함수(Find)
+1. [양방향 그래프 사이클 검사 함수(Find)](#find---undirected-graph)
+1. [단방향 그래프 사이클 검사 함수(Find)](#find---directed-graph)
 1. [합집합 수행 함수(Union)](#union)
 1. [크러스컬 알고리즘](#kruskal)
 1. [너비 우선 탐색(BFS)](#bfs)
@@ -192,7 +192,7 @@ for (int i = 0; i < N; i++)
 				DP[j][i] = DP[i][j] = DP[i][k] + DP[k][j];
 ```
 
-### Find
+### Find - Undirected Graph
 ```cpp
 int fi(int x) { return x == P[x]? x: P[x] = fi(P[x]); }
 
@@ -206,6 +206,43 @@ for (int i = 0; i < SIZE; i++) P[i] = i; // 자신의 부모가 자신을 가리
 
 bool isCycle = (fi(a) == fi(b));         // 노드 a의 root 부모와 노드 b의 root
                                          // 부모가 같으면 사이클
+```
+
+### Find - Directed Graph
+```cpp
+// 기본 원리는 DFS로 정점을 방문하는 순서대로 기억해 놓은 뒤,
+// DFS 하던 도중 방문한 정점의 방문 번호가 자신의 방문번호 보다 이전에 부여된 것이면
+// 역방향 간선이라 판단 가능
+
+// 정점의 개수
+const int SIZE = 10000;
+// MAP[i][j] = i에서 j로 방문하기 위한 간선 비용
+vector<int> MAP[SIZE];
+// FIN[i] = i번 정점을 DFS 수행중이면 1 아니면 0, VIS[i] = i번 정점의 방문번호
+int FIN[SIZE], VIS[SIZE];
+// 순방향 사이클이 발생할 경우 1, 아니면 0
+int isCycle = 0;
+
+// 우선 VIS 배열을 사용하기 전 INF(-1) 값으로 초기화
+for (int i = 0; i < 10001; i++) VIS[i] = -1;
+
+int visitNumber = 0;
+void fi(int x) {
+	VIS[x] = visitNumber++;
+	FIN[x] = 1;
+	for (int i = 1; i <= SIZE; i++) {
+		int th = MAP[x][i];
+
+		// 이전에 방문하지 않은 정점인 경우 DFS
+		if (VIS[th] != -1) fi(th);
+		else if (F[th] != 0) {
+			// 사이클 발생
+			// 방문하기 위한 정점이 이미 DFS 진행중이면 사이클이 발생하는 것으로 간주 한다.
+			isCycle = 1;
+		}
+	}
+	FIN[x] = 0;
+}
 ```
 
 ### Union
