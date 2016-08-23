@@ -4,15 +4,16 @@ Very simple and powerful algorithm
 
 ## 목차
 1. [Data Structure](#data-structure)
-2. [Algorithm](#algorithm)
-3. [Tip](#tip)
+1. [Algorithm](#algorithm)
+1. [Tip](#tip)
 
 ## Data Structure
 1. [Circular Queue](#circular-queue)
-2. [Queue & Stack](#queue--stack)
-3. [Index Tree](#index-tree)
-4. [Binary Index Tree](#binary-index-tree)
-5. Heap
+1. [Queue & Stack](#queue--stack)
+1. [Index Tree](#index-tree)
+1. [Binary Index Tree](#binary-index-tree)
+1. [Binary Heap - Array](#binary-heap)
+1. Double Linked List - Array
 
 ## Simple codes of Algorithm
 1. [Swap 함수](#swap)
@@ -109,10 +110,68 @@ int data = S[--t];
 bool isEmpty = (t <= 0);
 ```
 
+### Binary Heap
+```cpp
+// 속도에 대한 검증은 아래 Dijkstra 알고리즘 소스의 자료구조 중
+// priority_queue 를 heap 으로만 바꾸면 동작하며
+// https://www.acmicpc.net/problem/1753
+// 문제를 기준으로 패스가 가능하도록 작성 되었습니다.
+//
+// 사용 방법은 priority_queue 와 동일
+// 아래의 _swap() 함수 필수
+
+template <typename T>
+inline void _swap(T& a, T& b) { T t = move(a); a = move(b); b = move(t); }
+
+template <typename T, const int MAXSIZE = 200001>
+struct heap {
+	int size;
+	T ARR[MAXSIZE];
+	
+	inline bool empty() { return size <= 0; }
+	inline T top()      { return ARR[1]; }
+	
+	inline void push(T x) {
+		ARR[++size] = x;
+		
+		for (int k = size; k > 1 && ARR[k] < ARR[k>>1]; k>>=1)
+			_swap(ARR[k>>1], ARR[k]);
+	}
+	
+	inline void pop() {
+		ARR[1] = ARR[size--];
+		
+		int curr = 1;
+		while (curr + curr + 1 <= size) {
+			if (ARR[curr + curr + 1] < ARR[curr + curr]) {
+				_swap(ARR[curr], ARR[curr + curr + 1]);
+				curr = curr + curr + 1;
+			} else if (ARR[curr + curr] < ARR[curr + curr + 1]) {
+				_swap(ARR[curr], ARR[curr + curr]);
+				curr = curr + curr;
+			} else break;
+		}
+	}
+};
+
+heap<int, 300001> h;
+int main() {
+	for (int i = 300000; i >= 1; i--) {
+		h.push(i);
+	}
+
+	while (!h.empty()) {
+		cout << "[" << h.top() << "] " << endl;
+		h.pop();
+	}
+	return 0;
+}
+```
+
 ### Swap
 ```cpp
-template<typename T>
-inline void swap(T a, T b) { T t = a; a = b; b = t; }
+template <typename T>
+inline void _swap(T& a, T& b) { T t = move(a); a = move(b); b = move(t); }
 ```
 
 ### GCD
