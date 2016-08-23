@@ -153,19 +153,6 @@ struct heap {
 		}
 	}
 };
-
-heap<int, 300001> h;
-int main() {
-	for (int i = 300000; i >= 1; i--) {
-		h.push(i);
-	}
-
-	while (!h.empty()) {
-		cout << "[" << h.top() << "] " << endl;
-		h.pop();
-	}
-	return 0;
-}
 ```
 
 ### Swap
