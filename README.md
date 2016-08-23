@@ -12,8 +12,10 @@ Very simple and powerful algorithm
 2. [Queue & Stack](#queue--stack)
 3. [Index Tree](#index-tree)
 4. [Binary Index Tree](#binary-index-tree)
+5. Heap
 
 ## Simple codes of Algorithm
+1. [Swap 함수](#swap)
 1. [최대공약수 함수(유클리드 호제법)](#gcd)
 1. [최소공배수 함수(유클리드 호제법)](#lcm)
 1. [다익스트라 알고리즘 - O(E + VlogV)](#dijkstra)
@@ -29,10 +31,11 @@ Very simple and powerful algorithm
 1. 파라매트릭 서치
 1. [부분 합 구하기- O(1)](#sub-sum)
 1. 최장 공통 부분수열 구하기(LCS) - O(NM)
-1. 최장 공통 증가 부분수열 구하기 - O(NlgN)
+1. 최장 공통 증가 부분수열 구하기(LIS) - O(NlgN)
 1. nCr => Combination 구하기
 1. nPr => Permutation 구하기
 1. 평방분할(Sqrt Decomposition)
+1. Heap Sorting - O(NlogN)
 1. [STL Sorting - O(NlogN)](#stl-sorting)
 1. [Counting Sort - O(N)](#count-sorting)
 1. [이분탐색 - O(logN)](#binary-search)
@@ -104,6 +107,12 @@ int data = S[--t];
 
 // empty
 bool isEmpty = (t <= 0);
+```
+
+### Swap
+```cpp
+template<typename T>
+inline void swap(T a, T b) { T t = a; a = b; b = t; }
 ```
 
 ### GCD
