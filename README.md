@@ -2,6 +2,10 @@
 Very simple and powerful algorithm
 빠르면서 간단히 사용하기 편리한 알고리즘 소스 모음
 
+## 버그 제보 및 도와준 사람
+1. zmfldlwl (acmicpc.net)
+ - binary min heap
+
 ## 목차
 1. [Data Structure](#data-structure)
 1. [Algorithm](#algorithm)
@@ -10,10 +14,9 @@ Very simple and powerful algorithm
 ## Data Structure
 1. [Circular Queue](#circular-queue)
 1. [Queue & Stack](#queue--stack)
-1. [Index Tree](#index-tree)
-1. [Binary Index Tree](#binary-index-tree)
 1. [Binary Heap - Array](#binary-heap)
 1. Double Linked List - Array
+1. Segment Tree - Array
 
 ## Simple codes of Algorithm
 1. [Swap 함수](#swap)
@@ -36,11 +39,10 @@ Very simple and powerful algorithm
 1. nCr => Combination 구하기
 1. nPr => Permutation 구하기
 1. 평방분할(Sqrt Decomposition)
-1. Heap Sorting - O(NlogN)
+1. [Heap Sorting - O(NlogN)](#heap-sorting)
 1. [STL Sorting - O(NlogN)](#stl-sorting)
 1. [Counting Sort - O(N)](#count-sorting)
 1. [이분탐색 - O(logN)](#binary-search)
-1. (부분 합)세그먼트 트리 - O(logN)
 
 ## Tip
 1. stdio.h 함수들이 iostream 함수 보다 수십배 이상 빠름
@@ -119,6 +121,9 @@ bool isEmpty = (t <= 0);
 //
 // 사용 방법은 priority_queue 와 동일
 // 아래의 _swap() 함수 필수
+//
+// 도와준사람(acmicpc.net)
+// zmfldlwl
 
 template <typename T>
 inline void _swap(T& a, T& b) { T t = move(a); a = move(b); b = move(t); }
@@ -129,7 +134,7 @@ struct heap {
 	T ARR[MAXSIZE];
 	
 	inline bool empty() { return size <= 0; }
-	inline T top()      { return ARR[1]; }
+	inline T top() { return ARR[1]; }
 	
 	inline void push(T x) {
 		ARR[++size] = x;
@@ -142,7 +147,7 @@ struct heap {
 		ARR[1] = ARR[size--];
 		
 		int curr = 1;
-		while (curr + curr + 1 <= size) {
+		while (curr + curr + 1 <= size + 1) {
 			if (ARR[curr + curr + 1] < ARR[curr + curr]) {
 				_swap(ARR[curr], ARR[curr + curr + 1]);
 				curr = curr + curr + 1;
@@ -150,6 +155,9 @@ struct heap {
 				_swap(ARR[curr], ARR[curr + curr]);
 				curr = curr + curr;
 			} else break;
+			
+			if (ARR[curr] < ARR[curr>>1])
+				_swap(ARR[curr], ARR[curr>>1]);
 		}
 	}
 };
@@ -230,9 +238,9 @@ for (int i = 0; i < N; i++) for (int j = 0; j < N; j++) DP[i][j] = INF;
 // 시간 복잡도 O(N^3)
 //
 // floyd warshall algorithm
-for (int i = 0; i < N; i++)
-	for (int j = 0; j < N; j++)
-		for (int k = 0; k < N; k++)
+for (int k = 0; k < N; k++)
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < N; j++)
 			if (DP[i][j] > DP[i][k] + DP[k][j])
 				DP[i][j] = DP[i][k] + DP[k][j];
 
@@ -240,9 +248,9 @@ for (int i = 0; i < N; i++)
 // 시간 복잡도 O(N^2)
 //
 // floyd warshall algorithm
-for (int i = 0; i < N; i++)
-	for (int j = i+1; j < N; j++)
-		for (int k = 0; k < N; k++)
+for (int k = 0; k < N; k++)
+	for (int i = 0; i < N; i++)
+		for (int j = i+1; j < N; j++)
 			if (DP[i][j] > DP[i][k] + DP[k][j])
 				DP[j][i] = DP[i][j] = DP[i][k] + DP[k][j];
 ```
@@ -454,6 +462,21 @@ for (int i = 0; i < 10000; i++) SUM[i] = (total += INPUT[i]);
 // ans = (1 ~ 500까지 합) - (1 ~ 4까지 합);
 int ans = SUM[500] - SUM[5-1];
 cout << ans << endl;
+```
+
+### Heap Sorting
+```cpp
+void sort(int arr[], int s, int e) {
+	heap<int> Q;
+	for (int i = s; i < e; i++) {
+		Q.push(arr[i]);
+	}
+
+	int idx = 0;
+	while (!Q.empty()) {
+		arr[idx++] = Q.top(); Q.pop();
+	}
+}
 ```
 
 ### STL Sorting
