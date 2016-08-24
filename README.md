@@ -121,9 +121,6 @@ bool isEmpty = (t <= 0);
 //
 // 사용 방법은 priority_queue 와 동일
 // 아래의 _swap() 함수 필수
-//
-// 도와준사람(acmicpc.net)
-// zmfldlwl
 
 template <typename T>
 inline void _swap(T& a, T& b) { T t = move(a); a = move(b); b = move(t); }
