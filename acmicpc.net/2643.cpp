@@ -1,36 +1,23 @@
 #include <cstdio>
-#include <cstdlib>
-#include <iostream>
-#include <vector>
 #include <algorithm>
-using namespace std;
-pair<int, int> S[1000];
+
 int main() {
-	int N; cin >> N;
-	vector< pair<int, int> > P;
-	for (int i = 0; i < N; i++) {
-		int w1, w2; cin >> w1 >> w2;
-		P.push_back(pair<int, int>(min(w1, w2), max(w1, w2)));
+	int result = 0, x, y;
+	std::pair<int, int> ARR[101];
+	int DP[101] = { 0, };
+	int N; scanf("%d", &N);
+	for (int i = 1; i <= N; i++) {
+		scanf("%d %d", &x, &y);
+		ARR[i].first = x < y? x: y;
+		ARR[i].second = x > y? x: y;
 	}
-
-	sort(P.begin(), P.end());
-
-	int t = 0;
-	for (auto p = P.rbegin(); p != P.rend(); p++) {
-		if (t == 0) S[t++] = pair<int, int>(p->first, p->second);
-
-		pair<int, int> data = S[t-1];
-		if (p->second <= data.second) {
-			S[t++] = pair<int, int>(p->first, p->second);
-		}
+	std::sort(ARR+1, ARR+N+1);
+	for (int i = 1; i <= N; i++) {
+		for (int j = 0; j < i; j++)
+			if (ARR[i].second >= ARR[j].second && DP[i] < DP[j] + 1)
+				DP[i] = DP[j] + 1;
+		result = result < DP[i]? DP[i]: result;
 	}
-
-	int c = 0;
-	for (int i = t - 1; i > 0; i--) {
-		pair<int, int> p = S[i];
-		c++;
-		//cout << "? : " << p.first << " " << p.second << endl;
-	}
-	cout << c << endl;
+	printf("%d\n", result);
 	return 0;
 }

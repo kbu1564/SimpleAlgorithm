@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <iostream>
 using namespace std;
 
@@ -31,19 +32,21 @@ struct heap {
 				_swap(ARR[curr], ARR[curr + curr]);
 				curr = curr + curr;
 			} else break;
-
+			
 			if (ARR[curr] < ARR[curr>>1])
 				_swap(ARR[curr], ARR[curr>>1]);
 		}
 	}
 };
 
-heap<int, 300001> h;
+heap<long long> h;
 int main() {
-	for (int i = 300000; i >= 1; i--) {
-		h.push(i);
+	int N; scanf("%d", N);
+	for (int i = 1; i >= 1; i--) {
+		int ni; scanf("%d", &ni);
+		if (ni > 0) h.push(i);
 	}
-
+	
 	while (!h.empty()) {
 		cout << "[" << h.top() << "] " << endl;
 		h.pop();

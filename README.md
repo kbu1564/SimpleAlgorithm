@@ -130,17 +130,17 @@ struct heap {
 	int size;
 	T ARR[MAXSIZE];
 	
-	inline bool empty() { return size <= 0; }
-	inline T top() { return ARR[1]; }
+	bool empty() { return size <= 0; }
+	T top() { return ARR[1]; }
 	
-	inline void push(T x) {
+	void push(T x) {
 		ARR[++size] = x;
 		
 		for (int k = size; k > 1 && ARR[k] < ARR[k>>1]; k>>=1)
 			_swap(ARR[k>>1], ARR[k]);
 	}
 	
-	inline void pop() {
+	void pop() {
 		ARR[1] = ARR[size--];
 		
 		int curr = 1;

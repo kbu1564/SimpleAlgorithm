@@ -1,5 +1,10 @@
+#include <cstdio>
 #include <iostream>
+#include <queue>
 using namespace std;
+
+template <typename T>
+inline T _abs(T a) { return a < 0? -a: a; }
 
 template <typename T>
 inline void _swap(T& a, T& b) { T t = move(a); a = move(b); b = move(t); }
@@ -24,29 +29,45 @@ struct heap {
 		
 		int curr = 1;
 		while (curr + curr + 1 <= size + 1) {
-			if (ARR[curr + curr + 1] < ARR[curr + curr]) {
-				_swap(ARR[curr], ARR[curr + curr + 1]);
-				curr = curr + curr + 1;
-			} else if (ARR[curr + curr] < ARR[curr + curr + 1]) {
+			if (ARR[curr + curr] < ARR[curr + curr + 1]) {
 				_swap(ARR[curr], ARR[curr + curr]);
 				curr = curr + curr;
+			} else if (ARR[curr + curr + 1] < ARR[curr + curr]) {
+				_swap(ARR[curr], ARR[curr + curr + 1]);
+				curr = curr + curr + 1;
 			} else break;
-
+			
 			if (ARR[curr] < ARR[curr>>1])
 				_swap(ARR[curr], ARR[curr>>1]);
 		}
 	}
 };
 
-heap<int, 300001> h;
-int main() {
-	for (int i = 300000; i >= 1; i--) {
-		h.push(i);
+struct item {
+	long long n;
+	bool operator<(const item& i) const {
+		if (_abs(n) == _abs(i.n)) {
+			return n <= i.n;
+		}
+		return _abs(n) < _abs(i.n);
 	}
+};
 
-	while (!h.empty()) {
-		cout << "[" << h.top() << "] " << endl;
-		h.pop();
+heap<item> Q;
+int main() {
+	int N; scanf("%d", &N);
+	for (int i = 0; i < N; i++) {
+		long long A; scanf("%lld", &A);
+		if (A != 0)
+			Q.push({ A });
+		else {
+			if (Q.empty()) {
+				printf("0\n");
+			} else {
+				printf("%lld\n", Q.top().n);
+				Q.pop();
+			}
+		}
 	}
 	return 0;
 }

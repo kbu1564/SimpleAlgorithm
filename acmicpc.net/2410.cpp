@@ -1,14 +1,17 @@
 #include <iostream>
 using namespace std;
-int DP[1000001];
+
+const int MOD = 1e9;
+int DP[1000001] = { 1, };
+
 int main() {
 	int N; cin >> N;
-	for (int i = 1; i <= N; i<<=1) {
-		for (int j = 1; j <= N; j++) {
-			if (j >= i)
-				DP[j] = DP[j-i] + 1;
+
+	for (int i = 1; i <= N; i*=2) {
+		for (int j = i; j <= N; j++) {
+			DP[j] = (DP[j] + DP[j-i]) % MOD;
 		}
 	}
-	cout << DP[N] % 1e9 << endl;
+	cout << DP[N] << endl;
 	return 0;
 }
