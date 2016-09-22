@@ -8,7 +8,7 @@ Very simple and powerful algorithm
 
 ## 목차
 1. [Data Structure](#data-structure)
-1. [Algorithm](#algorithm)
+1. [Algorithm](#simple-codes-of-algorithm)
 1. [Tip](#tip)
 
 ## Data Structure
@@ -34,7 +34,7 @@ Very simple and powerful algorithm
 1. 위상 정렬
 1. 파라매트릭 서치
 1. [부분 합 구하기- O(1)](#sub-sum)
-1. 최장 공통 부분수열 구하기(LCS) - O(NM)
+1. 최장 공통 증가 부분수열 구하기(LIS) - O(N^2)
 1. 최장 공통 증가 부분수열 구하기(LIS) - O(NlgN)
 1. nCr => Combination 구하기
 1. nPr => Permutation 구하기
