@@ -1,39 +1,65 @@
+#include <cstdio>
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include <map>
+#include <vector>
 using namespace std;
-int t,n,D[1000001];
-typedef struct { int idx, value; } _n;
-_n Ni[1000001];
-int c(const void* v1, const void* v2) { return (*(_n*)v2).value-(*(_n*)v1).value; }
+
+namespace FIO {
+	const size_t BUFFER_SIZE = 524288;
+	char buffer[BUFFER_SIZE];
+	char* ptr = buffer + BUFFER_SIZE;
+ 
+	inline char readByte() {
+		if (ptr == buffer + BUFFER_SIZE) {
+			fread(buffer, 1, BUFFER_SIZE, stdin);
+			ptr = buffer;
+		}
+		return *(ptr++);
+	}
+ 
+	unsigned int readUnsigned() {
+		unsigned int ret = 0;
+		char c = readByte();
+		while (!('0' <= c && c <= '9')) {
+			c = readByte();
+		}
+		while ('0' <= c && c <= '9') {
+			ret = ret * 10 + (c - '0');
+			c = readByte();
+		}
+		return ret;
+	}
+};
+
+int t, n;
+long long D[1000001];
+
 int main() {
-  scanf("%d", &t);
-  for (int i = 0; i < t; i++) {
-    scanf("%d", &n);
-    for (int j = 0; j < n; j++) {
-      _n ni = (_n){ j, 0 };
-      scanf("%d", &ni.value);
-      D[j] = ni.value;
-      Ni[j] = ni;
-    }
-    qsort(Ni, n, sizeof(_n), c);
-
-    int sidx = 0;
-    long long gsp = 0;
-    for (int j = 0; j < n; j++) {
-      if (Ni[j].idx < sidx) continue;
-
-      long long sp = 0;
-      for (int k = sidx; k < Ni[j].idx; k++) sp += Ni[j].value - D[k];
-      gsp += sp;
-      sidx = Ni[j].idx + 1;
-      //printf("%d(%d) ", Ni[j].value, Ni[j].idx);
-    }
-    printf("%lld\n", gsp < 0? 0: gsp);
-  }
-  return 0;
+	t = FIO::readUnsigned();
+	for (int i = 0; i < t; i++) {
+		n = FIO::readUnsigned();
+		
+		vector<int> V[10001];
+		long long sum = 0;
+		for (int j = 0; j < n; j++) {
+			unsigned int v = FIO::readUnsigned();
+			D[j] = (sum += v);
+			V[v].push_back(j);
+		}
+		
+		int sidx = 0;
+		long long gsp = 0;
+		for (int j = 10000; j >= 0; j--) {
+			vector<int>& v = V[j];
+			int size = v.size();
+			for (int k = 0; k < size; k++) {
+				int jj = v[k];
+				if (jj < sidx) continue;
+				gsp += j * (jj - sidx) - ((jj > 0? D[jj-1]: 0LL) - (sidx > 0? D[sidx-1]: 0LL));
+				sidx = jj + 1;
+			}
+		}
+		
+		printf("%lld\n", gsp < 0? 0: gsp);
+	}
+	return 0;
 }
-

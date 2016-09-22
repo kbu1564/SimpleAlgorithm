@@ -15,7 +15,7 @@ Very simple and powerful algorithm
 1. [Circular Queue](#circular-queue)
 1. [Queue & Stack](#queue--stack)
 1. [Binary Heap - Array](#binary-heap)
-1. Double Linked List - Array
+1. [Double Linked List - Array](#double-linked-list)
 1. Segment Tree - Array
 
 ## Simple codes of Algorithm
@@ -167,6 +167,53 @@ struct heap {
 			if (ARR[curr] < ARR[curr>>1])
 				_swap(ARR[curr], ARR[curr>>1]);
 		}
+	}
+};
+```
+
+### Double Linked List
+```cpp
+// https://www.acmicpc.net/problem/5397 통과 기준
+template <typename T>
+struct node {
+	T val;
+	int left, right;
+	node() {}
+	node(T v) {
+		val = v;
+		left = right = 0;
+	}
+};
+
+template <typename T, const int MAXSIZE = 1000005>
+struct list {
+	int idx;
+	node<T> root[MAXSIZE];
+
+	list() : idx(1) {}
+	
+	int insert(int curr, T val) {
+		int left = curr;
+		int right = root[curr].right;
+
+		root[idx] = node<T>(val);
+		root[idx].left = left;
+		root[idx].right = right;
+		
+		root[right].left = idx;
+		root[left].right = idx;
+
+		return idx++;
+	}
+	
+	int remove(int curr) {
+		int left = root[curr].left;
+		int right = root[curr].right;
+		
+		root[left].right = right;
+		root[right].left = left;
+		
+		return left;
 	}
 };
 ```
