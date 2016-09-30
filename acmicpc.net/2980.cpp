@@ -9,20 +9,23 @@ int N, L;
 item D[1001];
 int main() {
 	cin >> N >> L;
-	for (int i = 0; i < N; i++) {
-		int d;
-		cin >> d;
-		cin >> D[d].r >> D[d].g;
-	}
 
+	int d = 0;
 	int curr = 0;
 	int result = 0;
-	while (curr < L) {
-		if (D[curr].r > 0 && D[curr].g > 0) {
-			result
+	for (int i = 0; i < N; i++) {
+		cin >> d;
+		cin >> D[d].r >> D[d].g;
+		result += d - curr;
+		curr = d;
+
+		int wait = result % (D[d].r + D[d].g);
+		if (wait < D[d].r) {
+			result += D[d].r - wait;
 		}
-		curr++;
-		result++;
 	}
+	if (d < L) result += L - d;
+
+	cout << result << endl;
 	return 0;
 }
