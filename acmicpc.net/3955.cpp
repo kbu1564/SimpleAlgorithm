@@ -2,49 +2,30 @@
 #include <cmath>
 using namespace std;
 
-int gcd(int a, int b) {
-	return b ? gcd(b, a%b) : a;
-}
+inline int gcd(int a, int b) { return !a? b: gcd(b%a, a); }
 
-int t, k, c;
+int T, K, C;
 int main() {
-	scanf("%d", &t);
-	for (int i = 0; i < t; i++) {
-		scanf("%d %d", &k, &c);
-		if (gcd(k, c) != 1) {
-			printf("IMPOSSIBLE\n");
-		} else {
-			// kx + 1 = cy;
-			long long q, r, s, t;
-			long long r1 = k, r2 = c;
-			long long s1 = 1, s2 = 0;
-			long long t1 = 0, t2 = 1;
-			while (r2 > 0) {
-				q = r1 / r2;
+	scanf("%d", &T);
+	for (int i = 0; i < T; i++) {
+		scanf("%d %d", &K, &C);
+		/*
+		Cx ≡ 1 (mod K)
 
-				r = r1 - r2 * q;
-				r1 = r2;
-				r2 = r;
-
-				s = s1 - s2 * q;
-				s1 = s2;
-				s2 = s;
-
-				t = t1 - t2 * q;
-				t1 = t2;
-				t2 = t;
+		ax ≡ b (mod c) 일때
+		a|b 이고 a|c 라면 -> x ≡ b/a (mod c/a)
+		아니라면 -> x ≡ b/a (mod c)
+		*/
+		if (gcd(K, C) == 1) {
+			long long curr = 1;
+			while (curr % C != 0) curr += K;
+			if (curr >= 0 && curr <= 1e9 && curr % C == 0) {
+				printf("%lld\n", curr / C);
+				continue;
 			}
-
-			while (t1 < 0 || t2 < 0) {
-				// k*t2 = c*t1 - 1
-				// x = t2, y = t1;
-				while (t1 < 0) t1 += k;
-				t2 = (c * t1 - 1) / k;
-			}
-
-			if (t1 > 1000000000) printf("IMPOSSIBLE\n");
-			else printf("%lld\n", t1);
 		}
+		printf("IMPOSSIBLE\n");
 	}
 	return 0;
 }
+
