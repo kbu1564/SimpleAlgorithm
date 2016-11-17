@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 long long IT[3000001];
@@ -23,10 +24,8 @@ int main() {
 	int N, M, K;
 	scanf("%d %d %d", &N, &M, &K);
 	int Q = M + K;
-	
-	int P = 1;
-	while (P < N) P *= 2;
-	
+	int P = 1 << (int)ceil(log2(N));
+
 	for (int i = P; i < P + N; i++) {
 		int n; scanf("%d", &n);
 		update(i, n);
