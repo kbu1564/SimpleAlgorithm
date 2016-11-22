@@ -16,7 +16,7 @@ Very simple and powerful algorithm
 1. [Queue & Stack](#queue--stack)
 1. [Binary Heap - Array](#binary-heap)
 1. [Double Linked List - Array](#double-linked-list)
-1. Segment Tree - Array
+1. [Segment Tree - Array](#segment-tree)
 
 ## Simple codes of Algorithm
 1. [Swap 함수](#swap)
@@ -216,6 +216,10 @@ struct list {
 		return left;
 	}
 };
+```
+
+### Segment Tree
+```cpp
 ```
 
 ### Swap
