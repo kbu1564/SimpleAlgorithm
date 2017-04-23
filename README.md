@@ -139,36 +139,36 @@ inline void _swap(T& a, T& b) { T t = move(a); a = move(b); b = move(t); }
 
 template <typename T, const int MAXSIZE = 200001>
 struct heap {
-	int size;
-	T ARR[MAXSIZE];
+  int size;
+  T ARR[MAXSIZE];
+
+  bool empty() { return size <= 0; }
+  T top() { return ARR[1]; }
+
+  void push(T x) {
+    ARR[++size] = x;
+    
+    for (int k = size; k > 1 && ARR[k] < ARR[k>>1]; k>>=1)
+      _swap(ARR[k>>1], ARR[k]);
+  }
 	
-	bool empty() { return size <= 0; }
-	T top() { return ARR[1]; }
-	
-	void push(T x) {
-		ARR[++size] = x;
-		
-		for (int k = size; k > 1 && ARR[k] < ARR[k>>1]; k>>=1)
-			_swap(ARR[k>>1], ARR[k]);
-	}
-	
-	void pop() {
-		ARR[1] = ARR[size--];
-		
-		int curr = 1;
-		while (curr + curr + 1 <= size + 1) {
-			if (ARR[curr + curr + 1] < ARR[curr + curr]) {
-				_swap(ARR[curr], ARR[curr + curr + 1]);
-				curr = curr + curr + 1;
-			} else if (ARR[curr + curr] < ARR[curr + curr + 1]) {
-				_swap(ARR[curr], ARR[curr + curr]);
-				curr = curr + curr;
-			} else break;
-			
-			if (ARR[curr] < ARR[curr>>1])
-				_swap(ARR[curr], ARR[curr>>1]);
-		}
-	}
+  void pop() {
+    ARR[1] = ARR[size--];
+    
+    int curr = 1;
+    while (curr + curr + 1 <= size + 1) {
+      if (ARR[curr + curr + 1] < ARR[curr + curr]) {
+        _swap(ARR[curr], ARR[curr + curr + 1]);
+        curr = curr + curr + 1;
+      } else if (ARR[curr + curr] < ARR[curr + curr + 1]) {
+        _swap(ARR[curr], ARR[curr + curr]);
+        curr = curr + curr;
+      } else break;
+      
+      if (ARR[curr] < ARR[curr>>1])
+        _swap(ARR[curr], ARR[curr>>1]);
+    }
+  }
 };
 ```
 
@@ -177,45 +177,45 @@ struct heap {
 // https://www.acmicpc.net/problem/5397 통과 기준
 template <typename T>
 struct node {
-	T val;
-	int left, right;
-	node() {}
-	node(T v) {
-		val = v;
-		left = right = 0;
-	}
+  T val;
+  int left, right;
+  node() {}
+  node(T v) {
+    val = v;
+    left = right = 0;
+  }
 };
 
 template <typename T, const int MAXSIZE = 1000005>
 struct list {
-	int idx;
-	node<T> root[MAXSIZE];
+  int idx;
+  node<T> root[MAXSIZE];
 
-	list() : idx(1) {}
-	
-	int insert(int curr, T val) {
-		int left = curr;
-		int right = root[curr].right;
+  list() : idx(1) {}
 
-		root[idx] = node<T>(val);
-		root[idx].left = left;
-		root[idx].right = right;
-		
-		root[right].left = idx;
-		root[left].right = idx;
+  int insert(int curr, T val) {
+    int left = curr;
+    int right = root[curr].right;
 
-		return idx++;
-	}
-	
-	int remove(int curr) {
-		int left = root[curr].left;
-		int right = root[curr].right;
-		
-		root[left].right = right;
-		root[right].left = left;
-		
-		return left;
-	}
+    root[idx] = node<T>(val);
+    root[idx].left = left;
+    root[idx].right = right;
+    
+    root[right].left = idx;
+    root[left].right = idx;
+
+    return idx++;
+  }
+
+  int remove(int curr) {
+    int left = root[curr].left;
+    int right = root[curr].right;
+    
+    root[left].right = right;
+    root[right].left = left;
+    
+    return left;
+  }
 };
 ```
 
@@ -269,14 +269,14 @@ priority_queue<node> Q;
 Q.push({ S, 0 });
 D[S] = 0;
 while (!Q.empty()) {
-	node V = Q.top(); Q.pop();
-	if (V.e > D[V.v]) continue;
-	for (auto &x : M[V.v]) {
-		if (D[x.v] > D[V.v] + x.e) {
-			D[x.v] = D[V.v] + x.e;
-			Q.push({ x.v, D[x.v] });
-		}
-	}
+  node V = Q.top(); Q.pop();
+  if (V.e > D[V.v]) continue;
+  for (auto &x : M[V.v]) {
+    if (D[x.v] > D[V.v] + x.e) {
+      D[x.v] = D[V.v] + x.e;
+      Q.push({ x.v, D[x.v] });
+    }
+  }
 }
 ```
 
@@ -299,20 +299,20 @@ for (int i = 0; i < N; i++) for (int j = 0; j < N; j++) DP[i][j] = INF;
 //
 // floyd warshall algorithm
 for (int k = 0; k < N; k++)
-	for (int i = 0; i < N; i++)
-		for (int j = 0; j < N; j++)
-			if (DP[i][j] > DP[i][k] + DP[k][j])
-				DP[i][j] = DP[i][k] + DP[k][j];
+  for (int i = 0; i < N; i++)
+    for (int j = 0; j < N; j++)
+      if (DP[i][j] > DP[i][k] + DP[k][j])
+        DP[i][j] = DP[i][k] + DP[k][j];
 
 // 무방향 그래프의 경우
 // 시간 복잡도 O(N^2)
 //
 // floyd warshall algorithm
 for (int k = 0; k < N; k++)
-	for (int i = 0; i < N; i++)
-		for (int j = i+1; j < N; j++)
-			if (DP[i][j] > DP[i][k] + DP[k][j])
-				DP[j][i] = DP[i][j] = DP[i][k] + DP[k][j];
+  for (int i = 0; i < N; i++)
+    for (int j = i+1; j < N; j++)
+      if (DP[i][j] > DP[i][k] + DP[k][j])
+        DP[j][i] = DP[i][j] = DP[i][k] + DP[k][j];
 ```
 
 ### Find - Undirected Graph
@@ -351,20 +351,20 @@ for (int i = 0; i < 10001; i++) VIS[i] = -1;
 
 int visitNumber = 0;
 void fi(int x) {
-	VIS[x] = visitNumber++;
-	FIN[x] = 1;
-	for (int i = 1; i <= SIZE; i++) {
-		int th = MAP[x][i];
+  VIS[x] = visitNumber++;
+  FIN[x] = 1;
+  for (int i = 1; i <= SIZE; i++) {
+    int th = MAP[x][i];
 
-		// 이전에 방문하지 않은 정점인 경우 DFS
-		if (VIS[th] != -1) fi(th);
-		else if (F[th] != 0) {
-			// 사이클 발생
-			// 방문하기 위한 정점이 이미 DFS 진행중이면 사이클이 발생하는 것으로 간주 한다.
-			isCycle = 1;
-		}
-	}
-	FIN[x] = 0;
+    // 이전에 방문하지 않은 정점인 경우 DFS
+    if (VIS[th] != -1) fi(th);
+    else if (F[th] != 0) {
+      // 사이클 발생
+      // 방문하기 위한 정점이 이미 DFS 진행중이면 사이클이 발생하는 것으로 간주 한다.
+      isCycle = 1;
+    }
+  }
+  FIN[x] = 0;
 }
 ```
 
@@ -524,18 +524,34 @@ int ans = SUM[500] - SUM[5-1];
 cout << ans << endl;
 ```
 
+### nCr Combination
+```cpp
+// nCr 구하는 방식에는 여러가지 방식이 존재
+// 그 중 일반적인 정수 범위의 값을 구하는 방식에 대해 구한다.
+// (1 <= n <= r <= 1000 인 경우)
+//
+// n, r의 범위가 위보다 큰 상황에서
+// nCr 의 Modular 연산의 적용을 원한다면
+// 페르마의 소정리를 이용하여 공식을 유도한 뒤 뤼카의 정리를 이용하여
+// 이해후 코드를 구현하면 Combiation의 Modular를 구할 수 있다.
+long long nCr(long long n, long long r) {
+  if (r == 0 || n == r) return 1;
+  return nCr(n - 1, r - 1) + nCr(n - 1, r);
+}
+```
+
 ### Heap Sorting
 ```cpp
 void sort(int arr[], int s, int e) {
-	heap<int> Q;
-	for (int i = s; i < e; i++) {
-		Q.push(arr[i]);
-	}
+  heap<int> Q;
+  for (int i = s; i < e; i++) {
+    Q.push(arr[i]);
+  }
 
-	int idx = 0;
-	while (!Q.empty()) {
-		arr[idx++] = Q.top(); Q.pop();
-	}
+  int idx = 0;
+  while (!Q.empty()) {
+    arr[idx++] = Q.top(); Q.pop();
+  }
 }
 ```
 
@@ -567,18 +583,18 @@ sort(vec.begin(), vec.end());
 int ARR[1000001];
 
 for (int i = 0; i < N; i++) {
-	int NI;
-	cin >> NI;
-	ARR[NI]++;
+  int NI;
+  cin >> NI;
+  ARR[NI]++;
 }
 
 for (int i = 0; i < 1000001; i++) {
-	if (ARR[i] <= 0) continue;
+  if (ARR[i] <= 0) continue;
 
-	// 해당 숫자의 개수 만큼 출력
-	for (int j = 0; j < ARR[i]; j++) {
-		cout << ARR[i] << " ";
-	}
+  // 해당 숫자의 개수 만큼 출력
+  for (int j = 0; j < ARR[i]; j++) {
+    cout << ARR[i] << " ";
+  }
 }
 cout << endl;
 ```
@@ -590,26 +606,26 @@ const int BUF_SIZE = 100001;
 
 template <typename T>
 void merge(T* arr, T* buf, int s, int e, int(*comp)(T&, T&)) {
-	if (e - s < 2) return;
-	int m = (e + s) / 2;
-	merge(buf, arr, s, m, comp);
-	merge(buf, arr, m, e, comp);
+  if (e - s < 2) return;
+  int m = (e + s) / 2;
+  merge(buf, arr, s, m, comp);
+  merge(buf, arr, m, e, comp);
 
-	int s1 = s, s2 = m;
-	for (int i = s; i < e; i++) {
-		if (s1 < m && (s2 >= e || comp(buf[s1], buf[s2]) > 0)) {
-			arr[i] = buf[s1++];
-		} else {
-			arr[i] = buf[s2++];
-		}
-	}
+  int s1 = s, s2 = m;
+  for (int i = s; i < e; i++) {
+    if (s1 < m && (s2 >= e || comp(buf[s1], buf[s2]) > 0)) {
+      arr[i] = buf[s1++];
+    } else {
+      arr[i] = buf[s2++];
+    }
+  }
 }
 
 template <typename T>
 void sort(T* arr, int n, int(*comp)(T&, T&)) {
-	T buf[BUF_SIZE];
-	for (int i = 0; i < n; i++) buf[i] = arr[i];
-	merge(arr, buf, 0, n, comp);
+  T buf[BUF_SIZE];
+  for (int i = 0; i < n; i++) buf[i] = arr[i];
+  merge(arr, buf, 0, n, comp);
 }
 ```
 
@@ -621,7 +637,7 @@ int INPUT[1000001] = { 0, };
 // 입력이 뒤죽박죽으로 들어오는 100만개 숫자들 중에서 M을 찾아야 할 경우
 int N = 1000000;
 for (int i = 0; i < N; i++)
-	cin >> INPUT[i];
+  cin >> INPUT[i];
 
 // 정렬 - O(NlogN)
 sort(INPUT, INPUT+N);
