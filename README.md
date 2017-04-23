@@ -36,7 +36,7 @@ Very simple and powerful algorithm
 1. [부분 합 구하기- O(1)](#sub-sum)
 1. 최장 공통 증가 부분수열 구하기(LIS) - O(N^2)
 1. 최장 공통 증가 부분수열 구하기(LIS) - O(NlgN)
-1. nCr => Combination 구하기
+1. [nCr => Combination 구하기](#ncr-combination)
 1. nPr => Permutation 구하기
 1. 평방분할(Sqrt Decomposition)
 1. [Heap Sorting - O(NlogN)](#heap-sorting)
